@@ -1,3 +1,10 @@
+// Test case 1:
+// 1. From the home page go to contact page
+// 2. Click submit button
+// 3. Validate errors
+// 4. Populate mandatory fields
+// 5. Validate errors are gone
+
 describe('planitautomationTest', function()
 {
     it("testcase1", function(){
