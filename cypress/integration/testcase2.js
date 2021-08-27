@@ -5,7 +5,7 @@
 // 4. Validate successful submission message
 // Note: Run this test 5 times to ensure 100% pass rate
 
-describe('planitautomationTest', function()
+describe('run testcase2', function()
     {
         Cypress._.times(5, (k) => {
             it("testcase2", function(){

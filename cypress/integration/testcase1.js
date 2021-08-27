@@ -5,7 +5,7 @@
 // 4. Populate mandatory fields
 // 5. Validate errors are gone
 
-describe('planitautomationTest', function()
+describe('run testcase1', function()
 {
     it("testcase1", function(){
         cy.visit("http://jupiter.cloud.planittesting.com")

@@ -7,34 +7,51 @@
 
 import { times } from 'lodash'
 
-describe('planitautomationTest', function()
+describe('run testcase4', function()
 {
-    it("testcase4", function(){
-        cy.visit("http://jupiter.cloud.planittesting.com")
-        cy.contains('Shop').click({force:true})
-        cy.get('#product-2').contains('Buy').dblclick()
-        times(5, () => {
-            cy.get('#product-4').contains('Buy').click()
-          })
-        times(3, () => {
-            cy.get('#product-7').contains('Buy').click()
-          })
-        cy.get('#nav-cart').click()
+   before(function(){
+      cy.visit("http://jupiter.cloud.planittesting.com")
+      cy.contains('Shop').click({force:true})
+   })
+ 
+   it("testcase4", function()
+   {
+       //using this method to find 'Buy' to avoid the order of items change in the future
+      //and also more clear to know what bought
+      cy.get('h4[class="product-title ng-binding"]')
+      .contains('Stuffed Frog')
+      .parent()
+      .contains('Buy').dblclick()
+
+      times(5, () => {
+         cy.get('h4[class="product-title ng-binding"]')
+         .contains('Fluffy Bunny')
+         .parent()
+         .contains('Buy').click()
+      })
+      times(3, () => {
+         cy.get('h4[class="product-title ng-binding"]')
+         .contains('Valentine Bear')
+         .parent().
+         contains('Buy').click()
+      })
+         
+      cy.get('#nav-cart').click()
 
 
-        var prices = [];
-        cy.get('tr').eq(1).should('contain', '$10.9')
-        cy.get('tr').eq(2).should('contain', '$9.99')        
-        cy.get('tr').eq(3).should('contain', '$14.99')
+      var prices = []
+      cy.get('tr').eq(1).should('contain', '$10.9')
+      cy.get('tr').eq(2).should('contain', '$9.99')        
+      cy.get('tr').eq(3).should('contain', '$14.99')
 
-        DealwithTable(prices,10.99,1).then(_=>{
+      DealwithTable(prices,10.99,1).then(_=>{
          DealwithTable(prices,9.99,2).then(_=>{
             DealwithTable(prices,14.99,3).then(_ => {
                let totalprices = 0.0;
                prices.forEach(element => {
-                  totalprices += element;
+                  totalprices += element
                })
-               cy.get('tr').eq(4).should('contain', totalprices);
+               cy.get('tr').eq(4).should('contain', totalprices)
             })
          })
         })
