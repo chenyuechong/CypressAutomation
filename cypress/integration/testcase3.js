@@ -5,21 +5,35 @@
 // 4. Click the cart menu
 // 5. Verify the items are in the cart
 
-describe('planitautomationTest', function()
+describe('run testcase3', function()
 {
-    it("testcase1", function(){
+    before(function(){
         cy.visit("http://jupiter.cloud.planittesting.com")
         cy.contains('Shop').click({force:true})
-        cy.get('#product-6').contains('Buy').dblclick()
-        cy.get('#product-4').contains('Buy').click()
+     })
+    it("testcase1", function(){
+
+        //using this method to find 'Buy' to avoid the order of items change in the future
+        //and also more clear to know what bought
+        cy.get('h4[class="product-title ng-binding"]')
+        .contains('Funny Cow')
+        .parent()
+        .contains('Buy').dblclick()
+
+        cy.get('h4[class="product-title ng-binding"]')
+        .contains('Fluffy Bunny')
+        .parent()
+        .contains('Buy').click()
+
+
         cy.get('#nav-cart').click()
 
-        cy.get('tr').eq(1).should('contain', ' Funny Cow')
-        cy.get('tr').eq(1).find('input[name="quantity"]').should('value','2')
+        cy.get('tr').eq(1).contains(' Funny Cow')
+        .parent()
+        .find('input[name="quantity"]').should('value','2')
 
-        cy.get('tr').eq(2).should('contain', 'Fluffy Bunny')
-        cy.get('tr').eq(2).find('input[name="quantity"]').should('value','1')
-
-
+        cy.get('tr').eq(2).contains('Fluffy Bunny')
+        .parent()
+        .find('input[name="quantity"]').should('value','1')
     })
 })
